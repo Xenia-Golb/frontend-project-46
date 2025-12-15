@@ -2,7 +2,7 @@ const stylish = require('./stylish')
 const plain = require('./plain')
 const json = require('./json')
 
-const getFormatter = formatName => {
+const getFormatter = (formatName) => {
   const formatters = {
     stylish,
     plain,

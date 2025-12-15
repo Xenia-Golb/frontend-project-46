@@ -15,7 +15,7 @@ const parse = (data, format) => {
   }
 }
 
-const getFormat = filepath => {
+const getFormat = (filepath) => {
   const ext = path.extname(filepath).toLowerCase().replace('.', '')
   if (ext === 'yml' || ext === 'yaml') {
     return 'yaml'
@@ -26,7 +26,7 @@ const getFormat = filepath => {
   throw new Error(`Unknown file extension: ${ext}`)
 }
 
-const getData = filepath => {
+const getData = (filepath) => {
   const resolvedPath = path.resolve(process.cwd(), filepath)
   const content = fs.readFileSync(resolvedPath, 'utf-8')
   const format = getFormat(filepath)

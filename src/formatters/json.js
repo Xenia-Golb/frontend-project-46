@@ -1,14 +1,14 @@
 const _ = require('lodash')
 
-const formatValue = value => {
+const formatValue = (value) => {
   if (_.isObject(value) && !_.isArray(value)) {
     return JSON.parse(JSON.stringify(value))
   }
   return value
 }
 
-const buildJson = ast => {
-  return ast.map(node => {
+const buildJson = (ast) => {
+  return ast.map((node) => {
     switch (node.type) {
       case 'added':
         return {
@@ -47,6 +47,6 @@ const buildJson = ast => {
   })
 }
 
-const json = ast => JSON.stringify(buildJson(ast), null, 4)
+const json = (ast) => JSON.stringify(buildJson(ast), null, 4)
 
 module.exports = json

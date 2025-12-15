@@ -1,7 +1,7 @@
 const _ = require('lodash')
 const INDENT_SIZE = 4
 
-const stringify = value => {
+const stringify = (value) => {
   if (value === null) return 'null'
   if (value === undefined) return 'undefined'
   if (typeof value === 'string') return value
@@ -12,7 +12,7 @@ const formatValue = (value, depth) => {
   if (_.isObject(value) && !_.isArray(value)) {
     const indent = ' '.repeat(depth * INDENT_SIZE)
     const innerIndent = ' '.repeat((depth + 1) * INDENT_SIZE)
-    const lines = Object.keys(value).map(key => {
+    const lines = Object.keys(value).map((key) => {
       const val = value[key]
       if (_.isObject(val) && !_.isArray(val)) {
         const nested = formatValue(val, depth + 1)
@@ -27,7 +27,7 @@ const formatValue = (value, depth) => {
 
 const iter = (ast, depth = 0) => {
   const indent = ' '.repeat(depth * INDENT_SIZE)
-  const lines = ast.map(node => {
+  const lines = ast.map((node) => {
     const { key, type } = node
 
     switch (type) {
@@ -54,6 +54,6 @@ const iter = (ast, depth = 0) => {
   return lines.join('\n')
 }
 
-const stylish = ast => `{\n${iter(ast)}\n}`
+const stylish = (ast) => `{\n${iter(ast)}\n}`
 
 module.exports = stylish

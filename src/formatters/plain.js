@@ -1,6 +1,6 @@
 const _ = require('lodash')
 
-const stringify = value => {
+const stringify = (value) => {
   if (_.isObject(value) && !_.isArray(value)) {
     return '[complex value]'
   }
@@ -10,7 +10,7 @@ const stringify = value => {
 }
 
 const buildPlainLines = (ast, path = []) => {
-  return ast.flatMap(node => {
+  return ast.flatMap((node) => {
     const currentPath = [...path, node.key].join('.')
 
     switch (node.type) {
@@ -36,6 +36,6 @@ const buildPlainLines = (ast, path = []) => {
   })
 }
 
-const plain = ast => buildPlainLines(ast).join('\n')
+const plain = (ast) => buildPlainLines(ast).join('\n')
 
 module.exports = plain
