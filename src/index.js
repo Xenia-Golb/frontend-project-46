@@ -26,9 +26,11 @@ const buildAst = (obj1, obj2) => {
     ) {
       return { key, type: "nested", children: buildAst(val1, val2) };
     }
+
     if (!_.isEqual(val1, val2)) {
       return { key, type: "changed", value1: val1, value2: val2 };
     }
+
     return { key, type: "unchanged", value: val1 };
   });
 };
