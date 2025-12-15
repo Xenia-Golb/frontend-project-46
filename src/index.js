@@ -1,7 +1,5 @@
-// src/index.js
-
 const _ = require("lodash");
-const stylish = require("./formatters/stylish");
+const getFormatter = require("./formatters");
 
 const buildAst = (obj1, obj2) => {
   const keys = _.sortBy(_.union(Object.keys(obj1), Object.keys(obj2)));
@@ -37,10 +35,8 @@ const buildAst = (obj1, obj2) => {
 
 const genDiff = (data1, data2, formatName = "stylish") => {
   const ast = buildAst(data1, data2);
-  if (formatName === "stylish") {
-    return stylish(ast);
-  }
-  throw new Error(`Unknown format: ${formatName}`);
+  const formatter = getFormatter(formatName);
+  return formatter(ast);
 };
 
 module.exports = genDiff;

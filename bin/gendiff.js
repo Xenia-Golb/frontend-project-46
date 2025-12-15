@@ -16,7 +16,6 @@ program
   .action((filepath1, filepath2, options) => {
     const data1 = getData(filepath1);
     const data2 = getData(filepath2);
-    const result = genDiff(data1, data2, options.format);
-    console.log(result);
+    console.log(genDiff(data1, data2, options.format));
   })
   .parse();
