@@ -1,42 +1,42 @@
-const fs = require("fs");
-const path = require("path");
-const yaml = require("js-yaml");
-const { isPlainObject } = require("lodash");
+const fs = require('fs')
+const path = require('path')
+const yaml = require('js-yaml')
+const { isPlainObject } = require('lodash')
 
 const parse = (data, format) => {
   switch (format) {
-    case "json":
-      return JSON.parse(data);
-    case "yaml":
-    case "yml":
-      return yaml.load(data);
+    case 'json':
+      return JSON.parse(data)
+    case 'yaml':
+    case 'yml':
+      return yaml.load(data)
     default:
-      throw new Error(`Unsupported format: ${format}`);
+      throw new Error(`Unsupported format: ${format}`)
   }
-};
+}
 
-const getFormat = (filepath) => {
-  const ext = path.extname(filepath).toLowerCase().replace(".", "");
-  if (ext === "yml" || ext === "yaml") {
-    return "yaml";
+const getFormat = filepath => {
+  const ext = path.extname(filepath).toLowerCase().replace('.', '')
+  if (ext === 'yml' || ext === 'yaml') {
+    return 'yaml'
   }
-  if (ext === "json") {
-    return "json";
+  if (ext === 'json') {
+    return 'json'
   }
-  throw new Error(`Unknown file extension: ${ext}`);
-};
+  throw new Error(`Unknown file extension: ${ext}`)
+}
 
-const getData = (filepath) => {
-  const resolvedPath = path.resolve(process.cwd(), filepath);
-  const content = fs.readFileSync(resolvedPath, "utf-8");
-  const format = getFormat(filepath);
-  const data = parse(content, format);
+const getData = filepath => {
+  const resolvedPath = path.resolve(process.cwd(), filepath)
+  const content = fs.readFileSync(resolvedPath, 'utf-8')
+  const format = getFormat(filepath)
+  const data = parse(content, format)
 
   if (!isPlainObject(data)) {
-    throw new Error("Only plain objects are supported");
+    throw new Error('Only plain objects are supported')
   }
 
-  return data;
-};
+  return data
+}
 
-module.exports = getData;
+module.exports = getData
