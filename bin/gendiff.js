@@ -17,7 +17,7 @@ program
   .action((filepath1, filepath2, options) => {
     const data1 = parse(filepath1);
     const data2 = parse(filepath2);
-
-    console.log("Files loaded successfully!");
+    const result = gendiff(data1, data2);
+    console.log(result);
   })
   .parse();
