@@ -22,7 +22,7 @@ module.exports = [
       quotes: ['error', 'single'],
       semi: ['error', 'never'],
       'comma-dangle': ['error', 'always-multiline'],
-      'arrow-parens': ['error', 'always'], // ← ВСЕГДА скобки
+      'arrow-parens': ['error', 'always'],
       'no-console': 'off',
       'no-unused-vars': 'error',
       'no-undef': 'error',
