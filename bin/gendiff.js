@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 const { Command } = require("commander");
-const path = require("path");
 const parse = require("../src/parser");
 const gendiff = require("../src/index");
 
@@ -14,7 +13,7 @@ program
   .arguments("<filepath1> <filepath2>")
   .option("-f, --format [type]", "output format", "stylish")
   .helpOption("-h, --help", "display help for command")
-  .action((filepath1, filepath2, options) => {
+  .action((filepath1, filepath2 /* options не используется — убрали */) => {
     const data1 = parse(filepath1);
     const data2 = parse(filepath2);
     const result = gendiff(data1, data2);
