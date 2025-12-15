@@ -1,10 +1,12 @@
 const stylish = require("./stylish");
 const plain = require("./plain");
+const json = require("./json");
 
 const getFormatter = (formatName) => {
   const formatters = {
     stylish,
     plain,
+    json,
   };
 
   if (!formatters[formatName]) {

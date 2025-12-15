@@ -2,4 +2,4 @@
 
 [![Actions Status](https://github.com/Xenia-Golb/frontend-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Xenia-Golb/frontend-project-46/actions)
 
-[![asciicast](https://asciinema.org/a/ZhkLEjLrfUvNhj5v1S76uFNN5.svg)](https://asciinema.org/a/ZhkLEjLrfUvNhj5v1S76uFNN5)
+[![asciicast](https://asciinema.org/a/pXTmpfk6CoO3RQeOXtK3bjQPc.svg)](https://asciinema.org/a/pXTmpfk6CoO3RQeOXtK3bjQPc)

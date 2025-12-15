@@ -23,4 +23,20 @@ describe("genDiff", () => {
     const data2 = getData(getFixturePath("file2.json"));
     expect(genDiff(data1, data2, "plain")).toBe(expectedPlain);
   });
+  it("formats diff as json", () => {
+    const data1 = getData(getFixturePath("file1.json"));
+    const data2 = getData(getFixturePath("file2.json"));
+    const result = genDiff(data1, data2, "json");
+
+    expect(() => JSON.parse(result)).not.toThrow();
+
+    const parsed = JSON.parse(result);
+    expect(parsed).toBeInstanceOf(Array);
+    expect(
+      parsed.some((node) => node.key === "common" && node.type === "nested")
+    ).toBe(true);
+    expect(
+      parsed.some((node) => node.key === "group2" && node.type === "removed")
+    ).toBe(true);
+  });
 });
