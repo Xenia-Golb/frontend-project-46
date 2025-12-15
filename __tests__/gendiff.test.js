@@ -1,12 +1,9 @@
-const fs = require("fs");
 const path = require("path");
 const genDiff = require("../src/index");
+const getData = require("../src/parsers");
 
 const getFixturePath = (filename) =>
   path.join(__dirname, "..", "__fixtures__", filename);
-const readFile = (filename) =>
-  fs.readFileSync(getFixturePath(filename), "utf-8");
-const readFixture = (filename) => JSON.parse(readFile(filename));
 
 const expected = `{
   - follow: false
@@ -19,8 +16,14 @@ const expected = `{
 
 describe("genDiff", () => {
   it("compares flat JSON files correctly", () => {
-    const data1 = readFixture("file1.json");
-    const data2 = readFixture("file2.json");
+    const data1 = getData(getFixturePath("file1.json"));
+    const data2 = getData(getFixturePath("file2.json"));
+    expect(genDiff(data1, data2)).toBe(expected);
+  });
+
+  it("compares flat YAML files correctly", () => {
+    const data1 = getData(getFixturePath("file1.yml"));
+    const data2 = getData(getFixturePath("file2.yml"));
     expect(genDiff(data1, data2)).toBe(expected);
   });
 
