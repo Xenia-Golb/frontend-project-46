@@ -1,22 +1,46 @@
+// src/index.js
+
 const _ = require("lodash");
+const stylish = require("./formatters/stylish");
 
-const genDiff = (data1, data2) => {
-  const allKeys = _.sortBy(_.union(Object.keys(data1), Object.keys(data2)));
+const buildAst = (obj1, obj2) => {
+  const keys = _.sortBy(_.union(Object.keys(obj1), Object.keys(obj2)));
 
-  const lines = allKeys.map((key) => {
-    if (!(key in data2)) {
-      return `  - ${key}: ${data1[key]}`;
+  return keys.map((key) => {
+    const has1 = _.has(obj1, key);
+    const has2 = _.has(obj2, key);
+
+    if (!has2) {
+      return { key, type: "removed", value: obj1[key] };
     }
-    if (!(key in data1)) {
-      return `  + ${key}: ${data2[key]}`;
+    if (!has1) {
+      return { key, type: "added", value: obj2[key] };
     }
-    if (data1[key] !== data2[key]) {
-      return `  - ${key}: ${data1[key]}\n  + ${key}: ${data2[key]}`;
+
+    const val1 = obj1[key];
+    const val2 = obj2[key];
+
+    if (
+      _.isObject(val1) &&
+      _.isObject(val2) &&
+      !_.isArray(val1) &&
+      !_.isArray(val2)
+    ) {
+      return { key, type: "nested", children: buildAst(val1, val2) };
     }
-    return `    ${key}: ${data1[key]}`;
+    if (!_.isEqual(val1, val2)) {
+      return { key, type: "changed", value1: val1, value2: val2 };
+    }
+    return { key, type: "unchanged", value: val1 };
   });
+};
 
-  return `{\n${lines.join("\n")}\n}`;
+const genDiff = (data1, data2, formatName = "stylish") => {
+  const ast = buildAst(data1, data2);
+  if (formatName === "stylish") {
+    return stylish(ast);
+  }
+  throw new Error(`Unknown format: ${formatName}`);
 };
 
 module.exports = genDiff;

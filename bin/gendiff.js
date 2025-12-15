@@ -13,9 +13,10 @@ program
   .arguments("<filepath1> <filepath2>")
   .option("-f, --format [type]", "output format", "stylish")
   .helpOption("-h, --help", "display help for command")
-  .action((filepath1, filepath2) => {
+  .action((filepath1, filepath2, options) => {
     const data1 = getData(filepath1);
     const data2 = getData(filepath2);
-    console.log(genDiff(data1, data2));
+    const result = genDiff(data1, data2, options.format);
+    console.log(result);
   })
   .parse();
