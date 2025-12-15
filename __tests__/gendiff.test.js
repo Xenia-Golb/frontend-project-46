@@ -2,7 +2,7 @@ const path = require('path')
 const genDiff = require('../src/index')
 const getData = require('../src/parsers')
 
-const getFixturePath = (filename) =>
+const getFixturePath = filename =>
   path.join(__dirname, '..', '__fixtures__', filename)
 
 const expectedPlain = `Property 'common.follow' was added with value: false
@@ -33,10 +33,10 @@ describe('genDiff', () => {
     const parsed = JSON.parse(result)
     expect(parsed).toBeInstanceOf(Array)
     expect(
-      parsed.some((node) => node.key === 'common' && node.type === 'nested'),
+      parsed.some(node => node.key === 'common' && node.type === 'nested'),
     ).toBe(true)
     expect(
-      parsed.some((node) => node.key === 'group2' && node.type === 'removed'),
+      parsed.some(node => node.key === 'group2' && node.type === 'removed'),
     ).toBe(true)
   })
 })

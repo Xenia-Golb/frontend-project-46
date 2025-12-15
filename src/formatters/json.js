@@ -47,6 +47,6 @@ const buildJson = (ast) => {
   })
 }
 
-const json = (ast) => JSON.stringify(buildJson(ast), null, 4)
+const json = ast => JSON.stringify(buildJson(ast), null, 4)
 
 module.exports = json

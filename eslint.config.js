@@ -1,41 +1,14 @@
-// eslint.config.js
-const js = require('@eslint/js')
-const globals = require('globals')
+import js from '@eslint/js'
+import globals from 'globals'
+import { defineConfig } from 'eslint/config'
+import stylistic from '@stylistic/eslint-plugin'
 
-module.exports = [
-  // Базовые рекомендованные правила
-  js.configs.recommended,
-
-  // Основные файлы проекта
+export default defineConfig([
+  stylistic.configs.recommended,
   {
-    files: ['**/*.js'],
-    ignores: ['node_modules/', 'coverage/'],
-    languageOptions: {
-      ecmaVersion: 12,
-      sourceType: 'commonjs',
-      globals: {
-        ...globals.node,
-      },
-    },
-    rules: {
-      // Стилевые правила — ВСЕ КЛЮЧИ В КАВЫЧКАХ
-      quotes: ['error', 'single'],
-      semi: ['error', 'never'],
-      'comma-dangle': ['error', 'always-multiline'],
-      'arrow-parens': ['error', 'always'],
-      'no-console': 'off',
-      'no-unused-vars': 'error',
-      'no-undef': 'error',
-    },
+    files: ['**/*.{js,mjs,cjs}'],
+    plugins: { js },
+    extends: ['js/recommended'],
+    languageOptions: { globals: globals.node },
   },
-
-  // Тесты — разрешаем Jest-глобалы
-  {
-    files: ['**/__tests__/**/*.js'],
-    languageOptions: {
-      globals: {
-        ...globals.jest,
-      },
-    },
-  },
-]
+])

@@ -2,7 +2,7 @@ const _ = require('lodash')
 const getFormatter = require('./formatters')
 const getData = require('./parsers')
 
-const isObject = (val) => _.isObject(val) && !_.isArray(val)
+const isObject = val => _.isObject(val) && !_.isArray(val)
 
 const buildAst = (obj1, obj2) => {
   const keys = _.sortBy(_.union(Object.keys(obj1), Object.keys(obj2)))
@@ -23,7 +23,7 @@ const buildAst = (obj1, obj2) => {
   })
 }
 
-const isPath = (arg) =>
+const isPath = arg =>
   typeof arg === 'string'
   && (arg.endsWith('.json') || arg.endsWith('.yml') || arg.endsWith('.yaml'))
 
